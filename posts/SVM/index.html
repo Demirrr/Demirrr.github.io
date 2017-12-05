@@ -10,25 +10,22 @@
       <h1 class="p-name entry-title" itemprop="headline name">
         Understanding Support Vector Machine / INCOMPLETE
       </h1>
-    
 </header>
     <div class="e-content entry-content" itemprop="articleBody text">
-        <p>Lets learn some SVM. The goal of this article is to show the beauty of SVM and deliver enough knowledge in oder to reader without hesitation can appy SVM in any programing language with or without any page import.</p>
 
-<p>Here is a quote from Feymann</p>
-<blockquote>
-<p><strong>What I cannot create, I do not understand</strong>.</p>
-<p><strong>The first principle is that you must not fool yourself and you are the easiest person to fool</strong>.
-</blockquote>
+<p>The goal of this article is to show the beauty of SVM and deliver enough information and intuition to reader who is interested in usage of SVM. Breaking SVM into small pieces could be quite demanding but I assure the reader that it will worth it.</p> 
 
-<p>bla bla blaa. Paragram</p>
-<p>bla bla blaa. Paragram</p>
-<p>bla bla blaa. Paragram</p>
-<p>bla bla blaa. Paragram</p>
+<p>I highly recommend the reader to firstly watch lectures which are given by 
+<a href="https://www.coursera.org/learn/machine-learning/lecture/sKQoJ/using-an-svm">Andrew Ng</a>
+and 
+<a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-034-artificial-intelligence-fall-2010/lecture-videos/lecture-16-learning-support-vector-machines/
+">Patrick Winston</a>. 
+While Andrew Ng provides very good intution, Patrick Winston shows the beauty of underlying matematics on SVM.</p>
+
 
 <strong id="table-of-contents">Table of Contents</strong><nav id="TableOfContents">
 <ul>
-<li><a href="#Chapter1">Chapter1</a></li>
+<li><a href="#Chapter1">Theroy</a></li>
 <li><a href="#Chapter2">Chapter 2</a>
 <ul>
 <li><a href="#Chapter2_1">Chapter 2.1</a></li>
@@ -40,13 +37,18 @@
 
 <h1 id="Chapter1">Theory</h1>
 
-<p>Aimed to deliver the beauty of Support Vector Mah
-<p>
-In contrast to Perceptron, SVM fines the best one!
+<p>Suppose the training data is linearly separable which means that there is at least one "line", one decision boundary such that y_i(wTx_i+b)>0 for all data points (x_i,y_i). I assumed that reader watch the videos and knows notation.</p>
+<p> This question that I would like to ask reader which to choose if more than one decision boundary exists. One of them should be "better" than other. As it is known that Perceptron Algorithm will find any decision boundary which separetes correctly classifies all data points. SVM will not only find a decision boundary, it will find the "best" one.</p>
+<p> It is proven that decision boundary is better than others in terms of their margin, closest data points to them. Therefore SVM tries to maximaze margin while correctly classifiying them</p>
+<p> FORMULA Quadratic PRogramming Problem</p>
+
+<p> FORMULA Lagrangian</p>
+
+
 <img src="images/separating-lines.png" alt="Separating_lines"></p>
 <p><img src="images/optimal-hyperplane.png" alt="Optimal Hyperplane"></p>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Mashine</a>
+<li><a href="https://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Machine</a>
 </li>
 </ul>
 
