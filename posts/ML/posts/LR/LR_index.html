@@ -4,75 +4,96 @@
   <head>
       <title>wX</title>
   </head>
-<body>
 
-    <header>
-      <h1 class="p-name entry-title" itemprop="headline name">
-        Logistic Regression
-      </h1>
-</header>
+	<body>
+
+    	<header>
+      		<h1 class="p-name entry-title" itemprop="headline name">
+        		Logistic Regression
+      		</h1>
+		</header>
+    
     <div class="e-content entry-content" itemprop="articleBody text">
 
-<p>Logistic Regression is applied to two different datasets.</p> 
+	<p>Logistic Regression is applied to two different datasets.</p> 
+
+	<strong id="table-of-contents">Table of Contents</strong>
+	<nav id="TableOfContents">
+		<ul>
+		<li><a href="#Chapter0">Basic Understanding</a></li>
+
+		<li><a href="#Chapter1">Logistic Regression on Linearly Seperable Data</a></li>
+		<li><a href="#Chapter2">Regularized Logistic Regression on Linearly UnSeperable Data</a>
+		<ul>
+			<li><a href="#Chapter2_1">Feature Mapping</a></li>
+			<li><a href="#Chapter2_2">Be aware of Overfitting</a></li>
+		</ul>
+		</li>
+	
+		<li><a href="#Conclusion">Conclusion</a></li>
+	</nav>
+
+
+	<h1 id="Chapter0">Basic Understanding</h1>
+
+	<p>	Logistic Regression, Logit model is a regression model in which it is desired to learn mapping from Input Space to Output Space. I would like to image this mapping in following way:
+	<p>	There are tons of ways to describe an object, namely, ask yourself how would you like to describe a <a href="https://goo.gl/BPULRX">"CAR"</a>. As you see the link there are many different cars, namely, color, wheels, autonomous or not, brand etc. I would like you to think a space which is defined by those different features and call this space - Input Space -.
+	<p>		Now, If i tell you; blue, 4 wheels, Self-driving, Tesla, you would inherently think that those features describe a <strong>CAR</strong>, not a bike or plane or ship right? 
+	However, if I tell you, blue, 19234 wheels, empty, empty, you would no inherently think that those features describe a <strong>CAR</strong>.
+	<p>		Thinking about <strong>a CAR</strong> or <strong>a CAR</strong> defines the OutputSpace of <strong>CAR</strong>. Sounds like shakespearean right :)</p>
 
 
 
-<strong id="table-of-contents">Table of Contents</strong><nav id="TableOfContents">
-<ul>
-<li><a href="#Chapter1">Logistic Regression on Linearly Seperable Data</a></li>
-<li><a href="#Chapter2">Regularized Logistic Regression on Linearly UnSeperable Data</a>
-<ul>
-<li><a href="#Chapter2_1">Feature Mapping</a></li>
-</ul>
-</li>
-<li><a href="#Chapter2_2">Be aware of Overfitting</a></li>
-</ul>
-</li>
-<li><a href="#concluding-remarks">Conclusion</a></li>
-</nav>
+	<h1 id="Chapter1">Logistic Regression on Linearly Seperable Data</h1>
 
-<h1 id="Chapter1">Logistic Regression on Linearly Seperable Data</h1>
 
-<p>The logistic regression hypothesis defined as H_w(x) = g(W'Transpose x) where function g is the sigmoid function. After sigmoid function is implemented. Loss function is impelmented. Loss function returns the loss and gradient.</p>
-<p><img src="images/before.png" alt="VisualizeData"></p>
+	<p>
+		The logistic regression hypothesis defined as H_w(x) = g(W'Transpose x) where function g is the sigmoid function. After sigmoid function is implemented. Loss function is impelmented. Loss function returns the loss and gradient.
+	</p>
 
-<p> Fminunc is used to learn weights -W-.</p>
+	<p><img src="images/before.png" alt="VisualizeData"></p>
 
-<p> After learning the parameters, the model can be used to predict whether a particular student will be admitted.</p>
+	<p> Fminunc is used to learn weights -W-.</p>
+
+	<p> After learning the parameters, the model can be used to predict whether a particular student will be admitted.</p>
 
 
 
-<h1 id="Chapter2">Regularized Logistic Regression</h1>
+	<h1 id="Chapter2">Regularized Logistic Regression</h1>
 
-<p>Regularized Logistic Regression is applied to the linearly unseperable data.</p>
-<p><img src="images/before2.png" alt="VisualizeData"></p>
-<p>
-	As Plot show that dataset cannot be seperated into positive and negative examples by a straight-line. Therefore, without 'modification' Logistic Regression will not perform wel on this dataset since Logistic Regression will only be able to find a linear decision boundary.
-</p>
+	<p>Regularized Logistic Regression is applied to the linearly unseperable data.</p>
+	<p><img src="images/before2.png" alt="VisualizeData"></p>
 
-<br>
+	<p>
+		As Plot show that dataset cannot be seperated into positive and negative examples by a straight-line. Therefore, without 'modification' Logistic Regression will not perform wel on this dataset since Logistic Regression will only be able to find a linear decision boundary.
+	</p>
 
-<h2 id="Chapter2_1">Feature Mapping</h2>
-Feature mapping enables to expand the the dimensions of feature space,namely, creates more features, so that possibly better chance to fit model. The features are mapped into all polynomial terms of x_1 and x_2 up to the sixth power. In other words, we are able to describe an object not from 2 perspective but right now 28 different perspective.
-<p>
-The vector of two features has been transfromed into a 28-dimensional vector. A logistic regression classifier trained on this higher-dimension feature vector will have a more complex decision boundary and will appear nonlinear when draw in our 2-dimensional plot.
-</p>
+	<br>
 
-<p>
-	Regularization parameter is chosen to be 1,Lambda=1
-</p>
+	<h2 id="Chapter2_1">Feature Mapping</h2>
+	Feature mapping enables to expand the the dimensions of feature space,namely, creates more features, so that possibly better chance to fit model. The features are mapped into all polynomial terms of x_1 and x_2 up to the sixth power. In other words, we are able to describe an object not from 2 perspective but right now 28 different perspective.
+	<p>
+	The vector of two features has been transfromed into a 28-dimensional vector. A logistic regression classifier trained on this higher-dimension feature vector will have a more complex decision boundary and will appear nonlinear when draw in our 2-dimensional plot.
+	</p>
 
-<p><img src="images/after2.png" alt="VisualizeData"></p>
+	<p>
+		Regularization parameter is chosen to be 1,Lambda=1
+	</p>
+
+	<p><img src="images/after2.png" alt="VisualizeData"></p>
 
 
-<h2 id="Chapter2_2">Be aware of Overfitting</h2>
+	<h2 id="Chapter2_2">Be aware of Overfitting</h2>
 
-<p>
-	Lambda=0
-</p>
+	<p>
+		Lambda=0
+	</p>
 
-<p><img src="images/after3.png" alt="VisualizeData"></p>
+	<p><img src="images/after3.png" alt="VisualizeData"></p>
 
+
+
+	<h2 id="Conclusion">Conclusion</h2>
 
   </body>
 </html>
