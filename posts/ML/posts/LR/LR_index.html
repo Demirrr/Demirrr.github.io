@@ -15,7 +15,12 @@
     
     <div class="e-content entry-content" itemprop="articleBody text">
 
-	<p>Logistic Regression is applied to two different datasets.</p> 
+	<p>	The logistic regression model is one of the most widely used binary models in the analysis of categorical data. It is a tool for representing the relation between a binary response and several predictors. Brilliant statistician David Cox has developed the logistic regression model in 1958. The logistic regression model is based on modeling the odds of an outcome. 
+	
+
+
+
+	</p> 
 
 	<strong id="table-of-contents">Table of Contents</strong>
 	<nav id="TableOfContents">
@@ -36,11 +41,21 @@
 
 	<h1 id="Chapter0">Basic Understanding</h1>
 
-	<p>	Logistic Regression, Logit model is a regression model in which it is desired to learn mapping from Input Space to Output Space. I would like to image this mapping in following way:
-	<p>	There are tons of ways to describe an object, namely, ask yourself how would you like to describe a <a href="https://goo.gl/BPULRX">"CAR"</a>. As you see the link there are many different cars, namely, color, wheels, autonomous or not, brand etc. I would like you to think a space which is defined by those different features and call this space - Input Space -.
-	<p>		Now, If i tell you; blue, 4 wheels, Self-driving, Tesla, you would inherently think that those features describe a <strong>CAR</strong>, not a bike or plane or ship right? 
-	However, if I tell you, blue, 19234 wheels, empty, empty, you would no inherently think that those features describe a <strong>CAR</strong>.
-	<p>		Thinking about <strong>a CAR</strong> or <strong>a CAR</strong> defines the OutputSpace of <strong>CAR</strong>. Sounds like shakespearean right :)</p>
+	<p>	 In logistic regression, the probability of the positive class (and obviously of the negative class) is modelled in the form of <a href="https://en.wikipedia.org/wiki/Sigmoid_function">"sigmoid function"</a>, namely, <a href="https://en.wikipedia.org/wiki/Sigmoid_function">"logistic function"</a>.
+
+		<p><img src="images/formula.png" alt="LogisticModel"></p>
+
+		Note that, the larger the absoluve value 
+<a href="http://www.codecogs.com/eqnedit.php?latex=\left&space;\|&space;w_i&space;\right&space;\|" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\left&space;\|&space;w_i&space;\right&space;\|" title="\left \| w_i \right \|" /></a> of the regression coefficent, the stronger the influnce of the corresponding feature of instance. 
+
+
+
+			<p><img src="images/model.png" alt="LogisticModel"></p>
+
+	<p>	One should note that, <a href="http://www.codecogs.com/eqnedit.php?latex=h(x)&space;=&space;w^T&space;x" target="_blank"><img src="http://latex.codecogs.com/gif.latex?h(x)&space;=&space;w^T&space;x" title="h(x) = w^T x" /></a> the larger the response/score is the higher the probability of saying that given instance belongs the positive class.
+
+	<p>It is also equivalent to modell the logatitm of the probability ration ( the log-odds ration) as a linear function of x.</p>
+				<p><img src="images/log_ratio.png" alt="LogRatio"></p>
 
 
 
@@ -48,7 +63,13 @@
 
 
 	<p>
-		The logistic regression hypothesis defined as H_w(x) = g(W'Transpose x) where function g is the sigmoid function. After sigmoid function is implemented. Loss function is impelmented. Loss function returns the loss and gradient.
+		The logistic regression hypothesis defined as
+
+<a href="http://www.codecogs.com/eqnedit.php?latex=H(x)=g(W^{T}x)" target="_blank"><img src="http://latex.codecogs.com/gif.latex?H(x)=g(W^{T}x)" title="H(x)=g(W^{T}x)" /></a>
+
+		where function <a href="http://www.codecogs.com/eqnedit.php?latex=g()" target="_blank"><img src="http://latex.codecogs.com/gif.latex?g()" title="g()" /></a>
+
+		 is the sigmoid function. After sigmoid function is implemented. Loss function is impelmented. Loss function returns the loss and gradient.
 	</p>
 
 	<p><img src="images/before.png" alt="VisualizeData"></p>
@@ -57,6 +78,8 @@
 
 	<p> After learning the parameters, the model can be used to predict whether a particular student will be admitted.</p>
 
+
+	<p><img src="images/after.png" alt="Model_fitted"></p>
 
 
 	<h1 id="Chapter2">Regularized Logistic Regression</h1>
