@@ -15,11 +15,7 @@
     
     <div class="e-content entry-content" itemprop="articleBody text">
 
-	<p>	The logistic regression model is one of the most widely used binary models in the analysis of categorical data. It is a tool for representing the relation between a binary response and several predictors. Brilliant statistician David Cox has developed the logistic regression model in 1958. The logistic regression model is based on modeling the odds of an outcome. 
-	
-
-
-
+	<p>	The logistic regression model is one of the most widely used binary models in the analysis of categorical data. It is a tool for representing the relation between a binary response and several predictors. Brilliant statistician David Cox has developed the logistic regression model in 1958. 	
 	</p> 
 
 	<strong id="table-of-contents">Table of Contents</strong>
@@ -27,8 +23,13 @@
 		<ul>
 		<li><a href="#Chapter0">Basic Understanding</a></li>
 
-		<li><a href="#Chapter1">Logistic Regression on Linearly Seperable Data</a></li>
-		<li><a href="#Chapter2">Regularized Logistic Regression on Linearly UnSeperable Data</a>
+		<li><a href="#Chapter1">From Scratch Logistic Regression on Linearly Seperable Data</a>
+			<ul>
+				<li><a href="#Chapter1_2">Logistic Function</a></li>
+				<li><a href="#Chapter1_3">How to find model parameters</a></li>
+			</ul>
+</li>
+		<li><a href="#Chapter2">From Scratch Regularized Logistic Regression on Linearly UnSeperable Data</a>
 		<ul>
 			<li><a href="#Chapter2_1">Feature Mapping</a></li>
 			<li><a href="#Chapter2_2">Be aware of Overfitting</a></li>
@@ -41,7 +42,7 @@
 
 	<h1 id="Chapter0">Basic Understanding</h1>
 
-	<p>	 In logistic regression, the probability of the positive class (and obviously of the negative class) is modelled in the form of <a href="https://en.wikipedia.org/wiki/Sigmoid_function">"sigmoid function"</a>, namely, <a href="https://en.wikipedia.org/wiki/Sigmoid_function">"logistic function"</a>.
+	<p>	 In logistic regression, the probability of the positive class (and obviously of the negative class) is modelled in the form of <a href="https://en.wikipedia.org/wiki/Sigmoid_function">"sigmoid function"</a>, namely, <a href="https://en.wikipedia.org/wiki/Sigmoid_function">"logistic function"</a>. In other words, an instance belongs to one of the class with a certain probability P and hence belongs to the other class with "1 - P" probability.
 
 		<p><img src="images/formula.png" alt="LogisticModel"></p>
 
@@ -58,8 +59,7 @@
 				<p><img src="images/log_ratio.png" alt="LogRatio"></p>
 
 
-
-	<h1 id="Chapter1">Logistic Regression on Linearly Seperable Data</h1>
+	<h1 id="Chapter1">From Scratch Logistic Regression on Linearly Seperable Data</h1>
 
 
 	<p>
@@ -73,6 +73,15 @@
 	</p>
 
 	<p><img src="images/before.png" alt="VisualizeData"></p>
+
+	<h1 id="Chapter1_2">Logistic Function</h1>
+
+					<p><img src="images/logistic_func.jpg" alt="logitic_f">.</p>
+
+
+	
+	<h1 id="Chapter1_3">How to find model parameters</h1>
+	<a href="http://www.ece.northwestern.edu/local-apps/matlabhelp/toolbox/optim/fminunc.html">"fminunc</a> finds a minimum of a scalar function of several variables, starting at an initial estimate. This is generally referred to as unconstrained nonlinear optimization. The term unconstrained means that no restirction is placed on the rage of x. 
 
 	<p> Fminunc is used to learn weights -W-.</p>
 
@@ -103,16 +112,17 @@
 		Regularization parameter is chosen to be 1,Lambda=1
 	</p>
 
-	<p><img src="images/after2.png" alt="VisualizeData"></p>
-
+	<p><img src="images/noOverfitting.png" alt="VisualizeData"></p>
+	
+	
 
 	<h2 id="Chapter2_2">Be aware of Overfitting</h2>
 
 	<p>
 		Lambda=0
 	</p>
+	<p><img src="images/Overfitting.png" alt="VisualizeData"></p>
 
-	<p><img src="images/after3.png" alt="VisualizeData"></p>
 
 
 
