@@ -3,8 +3,6 @@
 <html lang="en-us">
   <head>
       <title>wX</title>
-
-
       <style>
 
 pre, code { color: #bdae9d; background-color: #2a211c; }
@@ -15,12 +13,12 @@ code > span.kw { color: #43a8ed; font-weight: bold; }
 
     <header>
       <h1 class="p-name entry-title" itemprop="headline name">
-        Understanding Support Vector Machine / INCOMPLETE
+        Understanding Support Vector Machine 
       </h1>
 </header>
     <div class="e-content entry-content" itemprop="articleBody text">
 
-<p>The goal of this article is to show the beauty of SVM and deliver enough information and intuition to reader who is interested in usage of SVM. Breaking SVM into small pieces could be quite demanding but I assure the reader that it will worth it.</p> 
+<p>The goal of this tutorial is to implement SVM from scratch while explaining it.</p> 
 
 <p>I highly recommend the reader to firstly watch lectures which are given by 
 <a href="https://www.coursera.org/learn/machine-learning/lecture/sKQoJ/using-an-svm">Andrew Ng</a>
@@ -32,56 +30,57 @@ While Andrew Ng provides very good intution, Patrick Winston shows the beauty of
 
 <strong id="table-of-contents">Table of Contents</strong><nav id="TableOfContents">
 <ul>
-<li><a href="#Chapter1">Theroy</a></li>
-<li><a href="#Chapter2">Chapter 2</a>
-<ul>
-<li><a href="#Chapter2_1">Chapter 2.1</a></li>
-</ul></li>
-<ul>
-<li><a href="#concluding-remarks">Conclusion</a></li>
-</ul>
+<li><a href="#Chapter1">Introduction to SVM</a></li>
+<li><a href="#Chapter2">Visualize SVM</a>
 </nav>
 
-<h1 id="Chapter1">Theory</h1>
+<h1 id="Chapter1">Intro to SVM</h1>
+	<p>
+		SVM is one of the most popular approach in Machine Learning. Almost every AI book contains a chapter for SVM. There are many reasons why SVM is so important.  
+		Following properties of SVM are important ones.
 
-<p>Suppose the training data is linearly separable which means that there is at least one "line", one decision boundary such that y_i(wTx_i+b)>0 for all data points (x_i,y_i). I assumed that reader watch the videos and knows notation.</p>
+		<ul>
+			<li> 
+			SVM construct a maximum margin classifier, which finds a decision boundary with the largest distance to training instances. A classifier with the largest distance to training instances generalize well.
+			According to <b>VC Analysis</b>, large margins imply smaller VC Dimension, smaller Growth function. Since SVM construct a maximum margin classifiert, it generalizes well, <a href="https://youtu.be/eHsErlPJWUU?t=8m7s">short expalanation by Professor Yaser Abu-Mostafa</a>. 
+			</li>
+			<p></p>
+      
+      		<li> Kernel Machines can be used in SVM. In fact that, SVM needed to wait for 30 years to be acknowledge as one of the powerfull tool in Machine Learning and show that it does better job in MINST data base than Neural Networks.
+     		</li>
+     		<p></p>
+      
+     		<li> Finding a model parameter is CONVEX optimization problem as apposed to many other algorithms, such as Neural Networks.
+     		</li>
+
+       </ul> 
+
+
+       SVM finds a decision boundary which maximizes the margin on any dataset, provided that data is linearly separable. Thank to Kernel Trick, dataset which is not linearly separable in the original input space are easily separable in the higher-dimensional space. The high-dimensional linear separator is actually nonlinear in the original space while being linear in induced/high-dimensional space. 
+
+       30 years taking beautiful story behind SVM and Vapnik, <a href="https://youtu.be/_PwhiWxHK8o?t=46m15s">Source</a>. 
+	</p>
+
+
+
+<p>[NOTE TO ME start with book of AI PETER Norwig].Page 744
+
+Suppose the training data is linearly separable which means that there is at least one "line", one decision boundary such that y_i(wTx_i+b)>0 for all data points (x_i,y_i). I assumed that reader watch the videos and knows notation.</p>
 <p> This question that I would like to ask reader which to choose if more than one decision boundary exists. One of them should be "better" than other. As it is known that Perceptron Algorithm will find any decision boundary which separetes correctly classifies all data points. SVM will not only find a decision boundary, it will find the "best" one.</p>
 <p> It is proven that decision boundary is better than others in terms of their margin, closest data points to them. Therefore SVM tries to maximaze margin while correctly classifiying them</p>
-<p> FORMULA Quadratic PRogramming Problem</p>
-
-<p> FORMULA Lagrangian</p>
 
 
-<img src="images/separating-lines.png" alt="Separating_lines">  asdasd<img src="images/optimal-hyperplane.png" alt="Optimal Hyperplane"></p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Machine</a>
-</li>
-</ul>
-
-<p>In this post, we wi11ll focus specifically on two of the most common boosting algorithms, AdaBoost and Gradient Boosting.</p>
-
-<h1 id="Chapter2">More Theory</h1>
-
-<p>More Theory,More TheoryMore TheoryMore TheoryMore Theory,More Theory,More Theory</p>
-<p>
-
-<br>
-
-</p>
-
-<h2 id="Chapter2_1">Visualize</h2>
-
-<div id="libraries-used" class="section level3">
-<h3>Libraries Used</h3>
-<pre class="sourceCode python"><code class="sourceCode python">
-<span class="kw">import</span> numpy as np
-<span class="kw">import</span>matplotlib.pyplot as plt</code></pre>
-
-<p><img src="images/Data_point.png" alt="Data Points">  aasdasd<img src="images/LinearSVM.png" alt="LinearSVM.png"></p>
+<img src="images/separating-lines.png" alt="Separating_lines"> <img src="images/optimal-hyperplane.png" alt="Optimal Hyperplane"></p>
 
 
-<p><img src="images/UnLinear_Datapoints.png" alt="UnLinear Data Points">  aasdasd<img src="images/Poly_SVM.png" alt="Poly_SVM.png"></p>
 
+<h2 id="Chapter2">Visualize SVM</h2>
+
+
+<p><img src="images/Data_point.png" alt="Data Points"> <img src="images/LinearSVM.png" alt="LinearSVM.png"></p>
+
+
+<p><img src="images/UnLinear_Datapoints.png" alt="UnLinear Data Points"> <img src="images/Poly_SVM.png" alt="Poly_SVM.png"></p>
 
   </body>
 </html>
