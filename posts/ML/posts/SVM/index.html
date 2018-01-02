@@ -31,7 +31,10 @@ While Andrew Ng provides very good intution, Patrick Winston shows the beauty of
 <strong id="table-of-contents">Table of Contents</strong><nav id="TableOfContents">
 <ul>
 <li><a href="#Chapter1">Introduction to SVM</a></li>
-<li><a href="#Chapter2">Visualize SVM</a>
+<li><a href="#Chapter2">Introduction to SVM</a></li>
+
+<li><a href="#Chapter3">Visualize SVM</a><</li>
+<li><a href="#Chapter4">conclusion</a><</li>
 </nav>
 
 <h1 id="Chapter1">Intro to SVM</h1>
@@ -46,7 +49,7 @@ While Andrew Ng provides very good intution, Patrick Winston shows the beauty of
 			</li>
 			<p></p>
       
-      		<li> Kernel Machines can be used in SVM. In fact that, SVM needed to wait for 30 years to be acknowledge as one of the powerfull tool in Machine Learning and show that it does better job in MINST data base than Neural Networks.
+      		<li> For finding model parameter, <b>Kernel Trick</b> can be used. Kernel Trick is nothing but simply mapping the data into a higher-dimensional space without knowing the mapping.  SVM finds a decision boundary which maximizes the margin on any dataset, provided that data is linearly separable. Thank to Kernel Trick, dataset which is not linearly separable in the original input space are easily separable in the higher-dimensional space. The high-dimensional linear separator is actually nonlinear in the original space while being linear in induced/high-dimensional space. In fact, Vapnik had to wait 30 years to use idea of Kernel function in SVM. The beautiful story underlies in SVM and Kernel machines is explained by great lecturer Patrick Winston, <a href="https://youtu.be/_PwhiWxHK8o?t=46m15s">source</a>.
      		</li>
      		<p></p>
       
@@ -56,25 +59,28 @@ While Andrew Ng provides very good intution, Patrick Winston shows the beauty of
        </ul> 
 
 
-       SVM finds a decision boundary which maximizes the margin on any dataset, provided that data is linearly separable. Thank to Kernel Trick, dataset which is not linearly separable in the original input space are easily separable in the higher-dimensional space. The high-dimensional linear separator is actually nonlinear in the original space while being linear in induced/high-dimensional space. 
+	<p>		Consider the two plots in below. In the left image, there are five different decision boundary which perfectly classify all training instances. From the perceptive of loss function, there is nothing to worry, right?! However intutively, some examples are very close to the decision boundary. If one ponders on datagenerating process, this closeness is worring.
+	</p>
+	<p>
+		SVM adress this issue of closeness to decision boundary; find a parametrization/decision boundary which correctly classfies all training points while keeping the margin as large as possible. More specifically, 
 
-       30 years taking beautiful story behind SVM and Vapnik, <a href="https://youtu.be/_PwhiWxHK8o?t=46m15s">Source</a>. 
+		Instead of minimizing expected empirical loss on the training data, SVM attempts to minimize expected generalization loss. We don’t know where the
+		as-yet-unseen points may fall, but under the probabilistic assumption that they are drawn from the same distribution as the previously seen examples, there are some arguments from computational learning theory suggesting that we minimize generalization loss by choosing the separator that is farthest away from the examples we have seen so far.
 	</p>
 
 
-
-<p>[NOTE TO ME start with book of AI PETER Norwig].Page 744
-
-Suppose the training data is linearly separable which means that there is at least one "line", one decision boundary such that y_i(wTx_i+b)>0 for all data points (x_i,y_i). I assumed that reader watch the videos and knows notation.</p>
-<p> This question that I would like to ask reader which to choose if more than one decision boundary exists. One of them should be "better" than other. As it is known that Perceptron Algorithm will find any decision boundary which separetes correctly classifies all data points. SVM will not only find a decision boundary, it will find the "best" one.</p>
-<p> It is proven that decision boundary is better than others in terms of their margin, closest data points to them. Therefore SVM tries to maximaze margin while correctly classifiying them</p>
+	<img src="images/separating-lines.png" alt="Separating_lines"> 
+	<img src="images/optimal-hyperplane.png" alt="Optimal Hyperplane">
 
 
-<img src="images/separating-lines.png" alt="Separating_lines"> <img src="images/optimal-hyperplane.png" alt="Optimal Hyperplane"></p>
+<h2 id="Chapter2">How to find modal parameters</h2>
+With that in mind, the separator is defined as the set of points
+{x : w · x + b = 0}. We could search the space of w and b with gradient descent to find the
+parameters that maximize the margin while correctly classifying all the examples, as we have done in our Logistic Regression post. However, we could make use of dual representation.
+[CONTINUE WITH DUAL REPRESENTATION until quadratic Programming and Langrajian multiplier.]
 
 
-
-<h2 id="Chapter2">Visualize SVM</h2>
+<h2 id="Chapter3">Visualize SVM</h2>
 
 
 <p><img src="images/Data_point.png" alt="Data Points"> <img src="images/LinearSVM.png" alt="LinearSVM.png"></p>
@@ -82,6 +88,11 @@ Suppose the training data is linearly separable which means that there is at lea
 
 <p><img src="images/UnLinear_Datapoints.png" alt="UnLinear Data Points"> <img src="images/Poly_SVM.png" alt="Poly_SVM.png"></p>
 
+
+
+<h2 id="Chapter4">conclusion</h2>
+<a href="code/SVM from scratch.ipynb">SVM with 3thpart software</a>.
+commit the implementation of SVM from scratch.
   </body>
 </html>
 
