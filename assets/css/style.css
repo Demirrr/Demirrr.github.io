@@ -133,12 +133,6 @@ img::-moz-selection{background:transparent;}
         position: static;
         width: 100%;
         height: auto;
-        background: -webkit-linear-gradient(rgba(20, 20, 20, 0.75), rgba(40, 40, 40, 0.9)), url('../img/back_profile-box.jpg') no-repeat top scroll;
-        background: -webkit-linear-gradient(rgba(20, 20, 20, 0.75), rgba(20, 20, 20, 0.9)), url('../img/back_profile-box.jpg') no-repeat top scroll;
-        background: linear-gradient(
-            rgba(20, 20, 20, 0.75), 
-            rgba(20, 20, 20, 0.9)
-            ), url('../img/back_profile-box.jpg') no-repeat top scroll;
         background-size: cover;
     }
     #profile {
