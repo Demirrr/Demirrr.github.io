@@ -1,11 +1,4 @@
-/**
- * Created by IntelliJ IDEA.
- *
- * User: phil
- * Date: 15/11/12
- * Time: 11:04 AM
- *
- */
+
 (function ($) {
 
     var self = this, container, running=false, currentY = 0, targetY = 0, oldY = 0, maxScrollTop= 0, minScrollTop, direction, onRenderCallback=null,

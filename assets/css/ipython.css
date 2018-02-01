@@ -123,10 +123,6 @@ div#notebook {
     font-weight: 200;
 }
 
-/* 
-    This is a lazy fix, we *should* fix the 
-    background for each Bootstrap button type
-*/
 #site * .btn {
     background: #fafafa;
     -webkit-box-shadow: none;

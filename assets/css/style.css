@@ -1,6 +1,5 @@
 /*  ------------------------- 
         Modified: Caglar Demir;
-        Original Author: Vandré Leal Cândido
         Year: 2018
 
 ------------------------- */
@@ -8,7 +7,6 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 
-/* GENERAL STYLES */
 
 * {
     margin: 0;
@@ -305,7 +303,7 @@ img::-moz-selection{background:transparent;}
     z-index: 5;
 }
 
-#about, #Nanodegree, #DataSciSpec, #contact {
+#about, #Blog, #DataSciSpec, #contact {
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -339,7 +337,7 @@ img::-moz-selection{background:transparent;}
 }
 
 @media(max-width:991px) {
-    #about, #Nanodegree, #DataSciSpec, #contact {
+    #about, #Blog, #DataSciSpec, #contact {
         position: relative;
         min-height: 0;
         height: auto;
@@ -437,32 +435,32 @@ img::-moz-selection{background:transparent;}
 }
 
 
-/* NANODEGREE */
+/* Blog */
 
-#Nanodegree {
+#Blog {
     background-color: #FFF;
     border-top: 1px solid #DDD;
     box-shadow: 0 0 2px rgba(0,0,0,0.05);
 }
 
-#Nanodegree .item {
+#Blog .item {
     padding: 35px 30px;
     text-align: center;
 }
 
-#Nanodegree .item h4 {
+#Blog .item h4 {
     font-weight: 300;
     font-size: 1.4em;
     text-transform: uppercase;
     color: #444;
 }
 
-#Nanodegree .item p {
+#Blog .item p {
     margin-top: 10px;
     color: #666;
 }
 
-#Nanodegree .item i {
+#Blog .item i {
     margin-bottom: 25px;
     color: #62C370;
 }

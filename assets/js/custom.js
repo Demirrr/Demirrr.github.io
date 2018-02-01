@@ -1,8 +1,7 @@
 /* 	------------------------- 
         
-        Author: Vandré Leal Cândido
-        Description: UI/UX Designer & Developer
-        Year: 2014
+        Author: Caglar Demir
+        Year: 2018
 
 ------------------------- */
 
