@@ -36,7 +36,7 @@ var researchGraphData = {
 
 		{ id: "dicee", label: "Dice-Embeddings", category: "project",
 			description: "Hardware-agnostic framework for large-scale knowledge graph embeddings.",
-			links: [{ label: "PyPI", url: "https://pypi.org/project/dicee/" }] },
+			links: [{ label: "PyPI", url: "https://pypi.org/project/dicee/" }, { label: "GitHub", url: "https://github.com/dice-group/dice-embeddings" }] },
 
 		{ id: "ontolearn", label: "Ontolearn", category: "project",
 			description: "OWL class expression learning in Python.",
@@ -44,7 +44,7 @@ var researchGraphData = {
 
 		{ id: "owlapy", label: "OWLAPY", category: "project",
 			description: "OWL engineering & reasoning in Python.",
-			links: [{ label: "PyPI", url: "https://pypi.org/project/owlapy/" }] },
+			links: [{ label: "PyPI", url: "https://pypi.org/project/owlapy/" }, { label: "GitHub", url: "https://github.com/dice-group/owlapy" }] },
 
 		{ id: "scholar", label: "Publications", category: "project",
 			description: "35+ peer-reviewed papers at venues including IJCAI, ECML PKDD, WWW/TheWebConf, ISWC, ESWC, and ACML.",
