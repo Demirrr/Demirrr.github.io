@@ -814,3 +814,235 @@ textarea.form-control {
         width: 80% !important;
     }
 }
+
+
+/* EXPERIENCE TIMELINE */
+
+.timeline-heading {
+    color: #282828;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.1em;
+    margin: 25px 0 10px;
+}
+
+.timeline {
+    margin-bottom: 10px;
+}
+
+.timeline-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid #EEE;
+}
+
+.timeline-item:last-child {
+    border-bottom: none;
+}
+
+.timeline-date {
+    -ms-flex: 0 0 150px;
+    flex: 0 0 150px;
+    color: #62C370;
+    font-weight: 700;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    padding-top: 2px;
+}
+
+.timeline-body {
+    -ms-flex: 1;
+    flex: 1;
+    padding-left: 20px;
+    border-left: 2px solid #EEE;
+}
+
+.timeline-body h4 {
+    color: #282828;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.timeline-body .course_text {
+    padding-left: 0;
+    margin-top: 4px;
+    color: #666;
+}
+
+.timeline-loc {
+    color: #999;
+    font-weight: 400;
+    font-size: 0.85em;
+}
+
+.tag-row {
+    margin-top: 8px;
+    line-height: 2;
+}
+
+.tag {
+    display: inline-block;
+    background: #F0F7F1;
+    color: #3E8E52;
+    border: 1px solid #CDEBD4;
+    border-radius: 999px;
+    padding: 3px 12px;
+    font-size: 0.72em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: 0 6px 6px 0;
+}
+
+a.tag-link {
+    background: #FFF;
+    color: #62C370;
+    border-color: #62C370;
+    text-decoration: none;
+}
+
+a.tag-link:hover {
+    background: #62C370;
+    color: #FFF;
+}
+
+@media (max-width: 767px) {
+    .timeline-item {
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+    .timeline-date {
+        -ms-flex: none;
+        flex: none;
+        margin-bottom: 6px;
+    }
+    .timeline-body {
+        border-left: none;
+        padding-left: 0;
+    }
+}
+
+
+/* RESEARCH GRAPH */
+
+#graph-container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    margin-top: 15px;
+    background-color: #FCFCFC;
+    border: 1px solid #EEE;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+#research-graph {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+.graph-link {
+    stroke: #CCC;
+    stroke-width: 1.5px;
+    transition: opacity 0.2s linear;
+}
+
+.graph-link.dim {
+    opacity: 0.12;
+}
+
+.graph-node {
+    cursor: pointer;
+    transition: opacity 0.2s linear;
+}
+
+.graph-node.dim {
+    opacity: 0.18;
+}
+
+.graph-node circle {
+    stroke: #FFF;
+    stroke-width: 2px;
+}
+
+.graph-label {
+    font-family: 'Montserrat', 'Helvetica', sans-serif;
+    font-size: 11px;
+    fill: #4F535F;
+    pointer-events: none;
+}
+
+.graph-info-panel {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 260px;
+    max-width: calc(100% - 32px);
+    background: #FFF;
+    border: 1px solid #DDD;
+    border-radius: 6px;
+    padding: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.2s linear, transform 0.2s linear, visibility 0.2s;
+}
+
+.graph-info-panel.open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+
+.graph-info-close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    border: none;
+    background: none;
+    font-size: 20px;
+    line-height: 1;
+    color: #999;
+    cursor: pointer;
+}
+
+#graph-info-title {
+    color: #282828;
+    font-weight: 700;
+    margin: 0 0 8px;
+    padding-right: 16px;
+}
+
+#graph-info-desc {
+    font-size: 0.85em;
+    color: #666;
+    margin: 0 0 10px;
+}
+
+.graph-info-link {
+    display: block;
+    margin-top: 6px;
+    color: #62C370;
+    font-weight: 700;
+    font-size: 0.85em;
+}
+
+@media (max-width: 767px) {
+    #graph-container {
+        height: 420px;
+    }
+    .graph-info-panel {
+        top: 8px;
+        right: 8px;
+        left: 8px;
+        width: auto;
+        max-width: none;
+    }
+}
