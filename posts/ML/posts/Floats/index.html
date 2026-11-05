@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Floating-point numbers for ML: fp32 vs bf16, interactively</title>
+<meta name="description" content="Interactive walkthrough of sign, exponent and mantissa: convert numbers to fp32/bf16/TF32/fp16, multiply step by step, and see why training accumulates in fp32.">
+<link rel="stylesheet" href="floats.css">
+</head>
+<body>
+<main>
+  <p><a href="../../ml_index.html">&larr; Machine Learning posts</a></p>
+  <h1>Floating-point numbers for ML: fp32 vs bf16</h1>
+  <p class="lead">Every number in a neural network is stored as <span class="c-sign">sign</span>, <span class="c-exp">exponent</span> and <span class="c-man">mantissa</span>.
+  This page lets you build those bits yourself, multiply two numbers the way hardware does, see how the formats differ on the number line,
+  and find out why mixed-precision training adds up its results in fp32. Everything runs in your browser; the arithmetic is exact and was
+  cross-checked against PyTorch.</p>
+  <p class="note"><b>The one-line model:</b> value = (&minus;1)<sup><span class="c-sign">sign</span></sup> &times; (1 + <span class="c-man">mantissa</span>/2<sup>M</sup>) &times; 2<sup><span class="c-exp">exponent</span> &minus; 127</sup>.
+  The exponent decides <i>how big</i>, the mantissa decides <i>how precisely</i>, the sign decides <i>which side of zero</i>.
+  fp32 has M = 23 mantissa bits, bf16 has M = 7 (same 8 exponent bits, so the same range).</p>
+
+  <section class="panel" id="p1">
+    <h2>1. Convert a number to bits</h2>
+    <p class="note">Type a number (or click any bit below to flip it) and choose a format. Rounding is round-to-nearest, ties-to-even &mdash; what hardware does, not truncation.</p>
+    <div class="row"><label>x = <input type="text" id="c-x" value="4.1" spellcheck="false"></label>
+      <span class="seg" id="c-fmt"></span>
+      <span id="c-presets"></span></div>
+    <div class="row note">The five steps are collapsed: click a step to see how it works.
+      <button type="button" class="chip" id="c-expand">expand all</button><button type="button" class="chip" id="c-collapse">collapse all</button></div>
+    <div id="c-out"></div>
+  </section>
+
+  <section class="panel" id="p2">
+    <h2>2. Multiply two numbers, step by step</h2>
+    <p class="note">Hardware multiplies two floats with three independent pieces of work: <span class="c-sign">XOR the signs</span>, <span class="c-exp">add the exponents</span>, and <span class="c-man">multiply the significands as integers</span> &mdash; then round once.</p>
+    <div class="row"><label>a = <input type="text" id="m-a" value="3.14159265" spellcheck="false"></label>
+      <label>b = <input type="text" id="m-b" value="0.15625" spellcheck="false"></label>
+      <span class="seg" id="m-fmt"></span></div>
+    <div class="row"><label>store the product in</label><span class="seg" id="m-out"></span><span id="m-presets"></span></div>
+    <div class="row note">The five steps are collapsed: click a step to see it.
+      <button type="button" class="chip" id="m-expand">expand all</button><button type="button" class="chip" id="m-collapse">collapse all</button></div>
+    <div id="m-res"></div>
+  </section>
+
+  <section class="panel" id="p3">
+    <h2>3. The number line: how dense is each format?</h2>
+    <p class="note">Every tick is a number the format can represent. Zoom in on a value and watch bf16, TF32 and fp32 diverge. Where a lane is too dense to draw, it is shaded and the tick count is shown.</p>
+    <div class="row"><label>around x = <input type="text" id="n-x" value="1" spellcheck="false"></label>
+      <label>zoom <input type="range" id="n-zoom" min="0.3" max="7" step="0.05" value="1.6"></label><span id="n-win" class="note"></span></div>
+    <canvas id="n-canvas" height="260"></canvas>
+    <div id="n-info" class="note"></div>
+  </section>
+
+  <section class="panel" id="p4">
+    <h2>4. Why the running sum stays in fp32</h2>
+    <p class="note">A matrix multiply is a long sum of products. If the accumulator itself is bf16, then once it grows, small additions fall below half a tick and vanish.
+    Tensor cores multiply in bf16 but keep the running total in fp32.</p>
+    <div class="row"><label>add v = <input type="text" id="a-v" value="0.01"></label><label>N = <input type="number" id="a-n" value="20000" min="10" max="200000" step="1000"></label>
+      <button class="run" id="a-run" type="button">Run both</button></div>
+    <div class="kpi" id="a-kpi"></div>
+    <canvas id="a-c1" height="240"></canvas>
+    <h4>Same effect inside a dot product (random bf16 inputs in [0,1))</h4>
+    <div class="row"><button class="run" id="d-run" type="button">Run dot-product experiment</button><span class="note" id="d-note"></span></div>
+    <canvas id="a-c2" height="240"></canvas>
+  </section>
+
+  <section class="panel" id="p5">
+    <h2>5. What it buys you: measured on a laptop GPU</h2>
+    <p class="note">One 8192&times;8192 matrix multiply in a loop on an NVIDIA RTX 2000 Ada Laptop GPU (8 GB), PyTorch 2.10, a single run. Laptop GPUs throttle, so treat these as indicative, not as a benchmark.</p>
+    <table><tr><th>data type</th><th>significand bits (incl. implicit 1)</th><th>measured TFLOP/s</th><th>vs fp32</th></tr>
+      <tr><td>fp32 (CUDA cores)</td><td>24</td><td>4.4</td><td>1.0&times;</td></tr>
+      <tr><td>TF32 (tensor cores)</td><td>11</td><td>10.8</td><td>2.5&times;</td></tr>
+      <tr><td>bf16 (tensor cores, fp32 accumulate)</td><td>8</td><td>25.5</td><td>5.8&times;</td></tr></table>
+    <p class="note">Smaller significands mean far smaller multiplier circuits (roughly 24&times;24 vs 8&times;8 partial-product bits), and half the bytes to move. In a full training step the gain is smaller, because LayerNorm, softmax, the loss and the optimizer are bound by memory traffic and mostly stay fp32.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Take-aways</h2>
+    <ul>
+      <li><span class="c-sign">Sign</span> is free: it never causes error.</li>
+      <li><span class="c-exp">Exponent</span> adds exactly when you multiply; it only hurts when the result leaves the range (overflow to &infin;, underflow to 0). bf16 keeps fp32's range, fp16 does not.</li>
+      <li><span class="c-man">Mantissa</span> is the only place rounding happens. Each dropped bit doubles the tick size: bf16 ticks are 2<sup>16</sup> = 65,536&times; coarser than fp32's.</li>
+      <li>The product of two bf16 numbers has at most 16 significant bits, so it fits <i>exactly</i> in fp32's 24. Multiply in bf16, accumulate in fp32, and the only rounding left is the one on the inputs.</li>
+    </ul>
+    <p class="note">Source: <a href="floats-core.js">floats-core.js</a> (exact encoder/decoder, tested against PyTorch for fp32, bf16 and fp16 including subnormals and overflow) and <a href="floats-ui.js">floats-ui.js</a>.</p>
+  </section>
+</main>
+<script src="floats-core.js"></script>
+<script src="floats-ui.js"></script>
+</body>
+</html>
