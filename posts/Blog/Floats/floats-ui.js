@@ -197,10 +197,16 @@
       else { g.strokeStyle = col; g.lineWidth = 2; t.ticks.forEach(v => { const px = X(v); g.beginPath(); g.moveTo(px, y - 16); g.lineTo(px, y + 16); g.stroke(); }); g.lineWidth = 1; }
       info.push(`${f.name}: ${t.count.toLocaleString()} ticks in window`);
     });
+    const bounds = [];                                  // powers of two inside the window: tick gaps double here
+    for (let k = Math.floor(Math.log2(lo)); k <= Math.ceil(Math.log2(hi)); k++) { const v = Math.pow(2, k); if (v > lo && v < hi) bounds.push([k, v]); }
+    bounds.forEach(([k, v]) => { const bx = X(v); g.setLineDash([2, 3]); g.strokeStyle = css('--warn'); g.beginPath(); g.moveTo(bx, 22); g.lineTo(bx, 214); g.stroke(); g.setLineDash([]);
+      g.fillStyle = css('--warn'); g.textAlign = 'center'; g.fillText('2^' + k + ' = ' + num(v) + ': gaps double', bx, 12); });
     const px = X(x); g.setLineDash([4, 4]); g.strokeStyle = css('--fg'); g.beginPath(); g.moveTo(px, 8); g.lineTo(px, 218); g.stroke(); g.setLineDash([]);
     g.textAlign = 'center'; g.fillStyle = css('--fg'); g.fillText('x', px, 230);
     g.textAlign = 'left'; g.fillText(num(+lo.toPrecision(8)), padL, 248); g.textAlign = 'right'; g.fillText(num(+hi.toPrecision(8)), W - padR, 248);
-    $('#n-info').innerHTML = info.join(' · ') + `<br>x = ${num(x)} is stored as: ` + lanes.map(([k]) => `${F[k].name} ${num(FC.round(x, F[k]))}`).join(' · ');
+    const raw = parse($('#n-x').value), mirror = raw !== undefined && raw < 0 ? ' <span class="warn">(negative numbers mirror the positive side, so |x| is shown)</span>' : '';
+    const why = bounds.length ? `<br><b>Why the right side is sparser:</b> every format has the same number of ticks between consecutive powers of two (bf16: 2<sup>7</sup> = 128, TF32: 1024, fp32: ~8.4 million). The interval [2<sup>${bounds[0][0] - 1}</sup>, 2<sup>${bounds[0][0]}</sup>) is half as wide as [2<sup>${bounds[0][0]}</sup>, 2<sup>${bounds[0][0] + 1}</sup>), so its ticks sit twice as close. Gap just below ${num(bounds[0][1])} → just above: ` + lanes.map(([k]) => `${F[k].name} ${num(FC.ulpAt(bounds[0][1] * 0.999, F[k]))} → ${num(FC.ulpAt(bounds[0][1], F[k]))}`).join(' · ') : '';
+    $('#n-info').innerHTML = mirror + (mirror ? '<br>' : '') + info.join(' · ') + `<br>x = ${num(x)} is stored as: ` + lanes.map(([k]) => `${F[k].name} ${num(FC.round(x, F[k]))}`).join(' · ') + why;
   }
 
   /* ---------------- Panel 4: accumulation ---------------- */
