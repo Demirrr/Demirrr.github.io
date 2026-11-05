@@ -47,7 +47,8 @@
     <p class="note">Every tick is a number the format can represent. Zoom in on a value and watch bf16, TF32 and fp32 diverge. Where a lane is too dense to draw, it is shaded and the tick count is shown.</p>
     <div class="row"><label>around x = <input type="text" id="n-x" value="1" spellcheck="false"></label>
       <label>zoom <input type="range" id="n-zoom" min="0.3" max="7" step="0.05" value="1.6"></label><span id="n-win" class="note"></span></div>
-    <canvas id="n-canvas" height="260"></canvas>
+    <div class="nl-wrap" id="n-wrap"><canvas id="n-canvas" height="260"></canvas><div class="nl-line" id="n-hline" hidden></div><div class="nl-tip" id="n-tip" hidden></div></div>
+    <p class="note">Hover (or touch) a lane to read the value of the nearest tick.</p>
     <div id="n-info" class="note"></div>
   </section>
 

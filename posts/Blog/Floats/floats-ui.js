@@ -180,6 +180,21 @@
   }
 
   /* ---------------- Panel 3: number line ---------------- */
+  let LINE = null;
+  function hoverLine(ev) {
+    const tip = $('#n-tip'), hl = $('#n-hline');
+    if (!LINE) return;
+    const cv = $('#n-canvas'), r = cv.getBoundingClientRect(), px = ev.clientX - r.left, py = ev.clientY - r.top;
+    const lane = LINE.lanes.reduce((b, l) => Math.abs(l.y - py) < Math.abs(b.y - py) ? l : b);
+    if (Math.abs(lane.y - py) > 34 || px < LINE.padL || px > LINE.W - LINE.padR) { tip.hidden = hl.hidden = true; return; }
+    const f = F[lane.k], span = LINE.W - LINE.padL - LINE.padR, v = LINE.lo + (px - LINE.padL) / span * (LINE.hi - LINE.lo);
+    const tv = FC.round(v, f), enc = FC.encode(tv, f), bf = FC.bitFields(enc, f), gap = FC.ulpAt(tv, f), below = FC.ulpAt(tv * 0.999999, f);
+    const tx = LINE.padL + (tv - LINE.lo) / (LINE.hi - LINE.lo) * span;
+    hl.hidden = false; hl.style.left = tx + 'px'; hl.style.top = (lane.y - 18) + 'px'; hl.style.height = '36px';
+    tip.hidden = false;
+    tip.innerHTML = `<b>${f.name}</b> ${num(tv)}<br>bits ${bf.sign} ${bf.exp} ${bf.mant}<br>next tick up: +${num(gap)}` + (below !== gap ? ` · down: −${num(below)}` : '');
+    const w = tip.offsetWidth; tip.style.left = Math.min(Math.max(4, tx + 12), LINE.W - w - 4) + 'px'; tip.style.top = Math.max(4, lane.y + 24) + 'px';
+  }
   function renderLine() {
     const x = Math.abs(parse($('#n-x').value) || 1) || 1, z = +$('#n-zoom').value, w = Math.pow(10, -z);
     const lo = x * (1 - w), hi = x * (1 + w);
@@ -189,6 +204,7 @@
     g.clearRect(0, 0, W, H); g.font = '13px system-ui,sans-serif'; g.textBaseline = 'middle';
     const lanes = [['bf16', css('--sign')], ['tf32', css('--acc')], ['fp32', css('--man')]], padL = 70, padR = 14, X = v => padL + (v - lo) / (hi - lo) * (W - padL - padR);
     const info = [];
+    LINE = { lo, hi, padL, padR, W, H, lanes: lanes.map(([k], i) => ({ k, y: 40 + i * 62 })) };
     lanes.forEach(([k, col], i) => {
       const f = F[k], y = 40 + i * 62, t = FC.ticksIn(lo, hi, f, 600);
       g.fillStyle = css('--fg'); g.textAlign = 'right'; g.fillText(f.name, padL - 8, y);
@@ -270,6 +286,8 @@
   presets($('#m-presets'), [{ a: '3.14159265', b: '0.15625', label: 'π × 0.15625' }, { a: '0.1', b: '0.2', label: '0.1 × 0.2' }, { a: '1.00390625', b: '1.00390625', label: 'tie in the mantissa' }, { a: '300', b: '300', label: '300 × 300 (overflow in fp16)' }, { a: '1e-20', b: '1e-20', label: '1e-20 × 1e-20 (underflow)' }, { a: '-2.5', b: '4', label: '−2.5 × 4' }], p => { $('#m-a').value = p.a; $('#m-b').value = p.b; renderMul(); });
   ['#m-a', '#m-b'].forEach(s => $(s).addEventListener('input', renderMul));
   ['#n-x', '#n-zoom'].forEach(s => $(s).addEventListener('input', renderLine));
+  $('#n-canvas').addEventListener('pointermove', hoverLine);
+  $('#n-canvas').addEventListener('pointerleave', () => { $('#n-tip').hidden = true; $('#n-hline').hidden = true; });
   $('#a-run').onclick = runAccum; $('#d-run').onclick = runDot;
   window.addEventListener('resize', () => { renderLine(); });
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { renderLine(); runAccum(); });
